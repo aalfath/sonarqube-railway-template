@@ -24,11 +24,12 @@ The wrapper (`start.sh`) does three things on top of the official image:
 | `SONAR_JDBC_URL` | `jdbc:postgresql://${{Postgres.PGHOST}}:${{Postgres.PGPORT}}/${{Postgres.PGDATABASE}}` | Database connection |
 | `SONAR_JDBC_USERNAME` | `${{Postgres.PGUSER}}` | Database user |
 | `SONAR_JDBC_PASSWORD` | `${{Postgres.PGPASSWORD}}` | Database password |
+| `SONAR_CORE_SERVERBASEURL` | `https://${{RAILWAY_PUBLIC_DOMAIN}}` | Public URL SonarQube uses in links. Change it if you add a custom domain |
 | `PORT` | `9000` | Port SonarQube listens on |
 
 `SONAR_ADMIN_PASSWORD` is only used while the admin account still has the default password. After that, change the password in SonarQube (My Account → Security); the variable is not re-applied.
 
-Any other SonarQube setting can be set as an environment variable, for example `SONAR_CORE_SERVERBASEURL=https://your-domain` (see [SonarQube system properties](https://docs.sonarsource.com/sonarqube-community-build/server-installation/system-properties/)).
+Any other SonarQube setting can be set as an environment variable (see [SonarQube system properties](https://docs.sonarsource.com/sonarqube-community-build/server-installation/system-properties/)).
 
 ## Scanning a project
 
