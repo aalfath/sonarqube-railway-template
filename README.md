@@ -1,5 +1,7 @@
 # SonarQube on Railway
 
+[![Deploy on Railway](https://railway.com/button.svg)](https://railway.com/new/template/sonarqube?utm_medium=integration&utm_source=button&utm_campaign=sonarqube)
+
 Railway template for [SonarQube Community Build](https://www.sonarsource.com/open-source-editions/sonarqube-community-edition/), the self-hosted static code analysis server from SonarSource.
 
 ## What it deploys

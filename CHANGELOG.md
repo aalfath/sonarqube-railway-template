@@ -1,5 +1,9 @@
 # Changelog
 
+## README (2026-11-16)
+
+- Added the Deploy on Railway button, linked to the published template sonarqube (https://railway.com/deploy/sonarqube). No change to the image or the start script.
+
 ## 26.11.0.134175 (2026-11-16)
 
 - First release: SonarQube Community Build 26.11.0.134175 (`sonarqube:26.11.0.134175-community@sha256:65541accbdb92e27fe770fc6ba99988a3dd5a0c71ffafd67f88abfad366996fa`) with Railway PostgreSQL.
