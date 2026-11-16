@@ -13,7 +13,8 @@ The wrapper (`start.sh`) does three things on top of the official image:
 
 1. **No default login.** SonarQube creates `admin` / `admin` on first start. On the first boot the wrapper starts SonarQube on `127.0.0.1` only, changes the admin password to `SONAR_ADMIN_PASSWORD`, stops it, and only then starts it on the public port. The public URL never accepts `admin` / `admin`.
 2. **Persistent data.** Elasticsearch indexes (`SONAR_PATH_DATA`) and plugins installed from the Marketplace live on the Railway volume. Projects, issues and settings live in Postgres.
-3. **Railway-friendly start.** It listens on `PORT`, fixes the volume's ownership, runs SonarQube as the image's `sonarqube` user, forwards stop signals, and exits non-zero if SonarQube stops unexpectedly so Railway restarts it.
+3. **Works on every Railway host.** SonarQube's embedded Elasticsearch needs `vm.max_map_count` of at least 262144. Some Railway hosts have 65530, which a container can't raise, so on those hosts the wrapper starts Elasticsearch with `node.store.allow_mmap=false` (slightly slower indexing, same features).
+4. **Railway-friendly start.** It listens on `PORT`, fixes the volume's ownership, runs SonarQube as the image's `sonarqube` user, forwards stop signals, and exits non-zero if SonarQube stops unexpectedly so Railway restarts it.
 
 ## Variables
 

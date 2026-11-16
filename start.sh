@@ -28,6 +28,14 @@ done
 chown -R sonarqube:root "$PERSIST_DIR" "$SQ_HOME/extensions" "$SQ_HOME/logs" "$SQ_HOME/temp"
 chmod 0770 "$PERSIST_DIR"
 
+# The embedded Elasticsearch enforces vm.max_map_count >= 262144. Railway hosts differ (65530 on
+# some), and a container can't raise it, so fall back to non-mmap index storage when it's too low.
+max_map_count="$(cat /proc/sys/vm/max_map_count 2>/dev/null || echo 0)"
+if [ "$max_map_count" -lt 262144 ]; then
+  log "vm.max_map_count is $max_map_count (< 262144): starting Elasticsearch with node.store.allow_mmap=false."
+  export SONAR_SEARCH_JAVAADDITIONALOPTS="${SONAR_SEARCH_JAVAADDITIONALOPTS:+$SONAR_SEARCH_JAVAADDITIONALOPTS }-Dnode.store.allow_mmap=false"
+fi
+
 if [ -z "${SONAR_JDBC_URL:-}" ]; then
   log "SONAR_JDBC_URL is not set. This template expects a PostgreSQL database; refusing to start on the embedded H2 test database."
   exit 1
